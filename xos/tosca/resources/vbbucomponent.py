@@ -6,7 +6,7 @@ sys.path.append("/opt/tosca")
 from translator.toscalib.tosca_template import ToscaTemplate
 import pdb
 
-from services.mcord.models import VBBUComponent, MCORDService
+from services.vbbu.models import VBBUComponent, MCORDService
 
 from xosresource import XOSResource
 

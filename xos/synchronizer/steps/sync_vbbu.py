@@ -1,7 +1,7 @@
 import os
 import sys
 from django.db.models import Q, F
-from services.mcord.models import MCORDService, VBBUComponent
+from services.vbbu.models import MCORDService, VBBUComponent
 from synchronizers.base.SyncInstanceUsingAnsible import SyncInstanceUsingAnsible
 
 parentdir = os.path.join(os.path.dirname(__file__), "..")
