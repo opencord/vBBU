@@ -34,7 +34,7 @@ class MCORDService(Service):
         # database.
         proxy = True
         # The name used to find this service, all directories are named this
-        app_label = "mcord"
+        #app_label = "mcord"
         verbose_name = "MCORD Service"
 
 # This is the class to represent the tenant. Most of the logic is given to use
