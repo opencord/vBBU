@@ -19,7 +19,7 @@ topology_template:
           synchronizer: synchronizer/manifest
           synchronizer_run: vbbu-synchronizer.py
           #tosca_custom_types: exampleservice.yaml
-          tosca_resource: tosca/resources/vbbucomponent.py
+          tosca_resource: tosca/resources/vbbucomponent.py, tosca/resources/mcordservice.py
           #rest_service: subdirectory:vsg api/service/vsg/vsgservice.py
           #rest_tenant: subdirectory:cord api/tenant/cord/vsg.py
           private_key: file:///opt/xos/key_import/vBBU_rsa
