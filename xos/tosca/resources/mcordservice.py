@@ -1,13 +1,4 @@
-import os
-import pdb
-import sys
-import tempfile
-sys.path.append("/opt/tosca")
-from translator.toscalib.tosca_template import ToscaTemplate
-import pdb
-
 from services.vbbu.models import MCORDService
-
 from service import XOSService
 
 class XOSMCORDService(XOSService):
