@@ -3,5 +3,5 @@
   gather_facts: False
   connection: ssh
   user: ubuntu
-  sudo: yes
+  become: yes
   tasks:
