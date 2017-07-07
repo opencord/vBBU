@@ -1,7 +1,8 @@
 from django.http import HttpResponse
 from django.views.generic import TemplateView, View
 from django import template
-from core.models import *
+# from core.models import *
+from synchronizers.new_base.modelaccessor import *
 import json
 import os
 import time

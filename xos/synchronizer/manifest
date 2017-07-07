@@ -1,8 +1,8 @@
 model-deps
 vbbu-synchronizer.py
 vbbu_config
-steps/sync_vbbu.py
-steps/sync_vbbu.yaml
+steps/sync_vbbutenant.py
+steps/vbbutenant_playbook.yaml
 stop.sh
 manifest
 __init__.py

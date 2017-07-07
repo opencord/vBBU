@@ -10,18 +10,18 @@ topology_template:
     servicecontroller#vbbu:
       type: tosca.nodes.ServiceController
       properties:
-          base_url: file:///opt/xos_services/vBBU/xos/
+          base_url: file:///opt/xos_services/vbbu/xos/
           # The following will concatenate with base_url automatically, if
           # base_url is non-null.
-          models: models.py
+          # models: models.py
+          xproto: ./
           admin: admin.py
           admin_template: templates/mcordadmin.html
           synchronizer: synchronizer/manifest
           synchronizer_run: vbbu-synchronizer.py
           #tosca_custom_types: exampleservice.yaml
-          tosca_resource: tosca/resources/vbbucomponent.py, tosca/resources/mcordservice.py
+          tosca_resource: tosca/resources/vbbutenant.py, tosca/resources/vbbuservice.py
           #rest_service: subdirectory:vsg api/service/vsg/vsgservice.py
           #rest_tenant: subdirectory:cord api/tenant/cord/vsg.py
-          private_key: file:///opt/xos/key_import/vBBU_rsa
-          public_key: file:///opt/xos/key_import/vBBU_rsa.pub
-
+          private_key: file:///opt/xos/key_import/mcord_rsa
+          public_key: file:///opt/xos/key_import/mcord_rsa.pub

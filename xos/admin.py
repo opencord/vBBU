@@ -1,10 +1,11 @@
 
 from core.admin import ReadOnlyAwareAdmin, SliceInline
 from core.middleware import get_request
-from core.models import User
+# from core.models import User
 from django import forms
 from django.contrib import admin
-from services.vbbu.models import MCORDService, VBBUComponent, MCORD_KIND
+# from services.vbbu.models import *
+from synchronizers.new_base.modelaccessor import *
 
 # The class to provide an admin interface on the web for the service.
 # We do only configuration here and don't change any logic because the logic
@@ -72,7 +73,7 @@ class MCORDServiceAdmin(ReadOnlyAwareAdmin):
 # service because tenants vary more than services and there isn't a common form.
 # This allows us to change the python behavior for the admin form to save extra
 # fields and control defaults.
-class VBBUComponentForm(forms.ModelForm):
+class VBBUTenantForm(forms.ModelForm):
     # Defines a field for the creator of this service. It is a dropdown which
     # is populated with all of the users.
     creator = forms.ModelChoiceField(queryset=User.objects.all())
@@ -80,7 +81,7 @@ class VBBUComponentForm(forms.ModelForm):
     display_message = forms.CharField(required=False)
 
     def __init__(self, *args, **kwargs):
-        super(VBBUComponentForm, self).__init__(*args, **kwargs)
+        super(VBBUTenantForm, self).__init__(*args, **kwargs)
         # Set the kind field to readonly
         self.fields['kind'].widget.attrs['readonly'] = True
         # Define the logic for obtaining the objects for the provider_service
@@ -109,17 +110,17 @@ class VBBUComponentForm(forms.ModelForm):
         self.instance.creator = self.cleaned_data.get("creator")
         self.instance.display_message = self.cleaned_data.get(
             "display_message")
-        return super(VBBUComponentForm, self).save(commit=commit)
+        return super(VBBUTenantForm, self).save(commit=commit)
 
     class Meta:
-        model = VBBUComponent
+        model = VBBUTenant
         fields = '__all__'
 
 
 # Define the admin form for the tenant. This uses a similar structure as the
 # service but uses HelloWorldTenantCompleteForm to change the python behavior.
 
-class VBBUComponentAdmin(ReadOnlyAwareAdmin):
+class VBBUTenantAdmin(ReadOnlyAwareAdmin):
     verbose_name = "vBBU Component"
     verbose_name_plural = "vBBU Components"
     list_display = ('id', 'backend_status_icon', 'instance', 'display_message')
@@ -130,14 +131,14 @@ class VBBUComponentAdmin(ReadOnlyAwareAdmin):
                                     'display_message'],
                          'classes': ['suit-tab suit-tab-general']})]
     readonly_fields = ('backend_status_text', 'instance',)
-    form = VBBUComponentForm
+    form = VBBUTenantForm
 
     suit_form_tabs = (('general', 'Details'),)
 
     def queryset(self, request):
-        return VBBUComponent.get_tenant_objects_by_user(request.user)
+        return VBBUTenant.get_tenant_objects_by_user(request.user)
 
 
 # Associate the admin forms with the models.
 admin.site.register(MCORDService, MCORDServiceAdmin)
-admin.site.register(VBBUComponent, VBBUComponentAdmin)
+admin.site.register(VBBUTenant, VBBUTenantAdmin)

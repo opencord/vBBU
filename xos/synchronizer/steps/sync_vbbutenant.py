@@ -1,35 +1,37 @@
 import os
 import sys
 from django.db.models import Q, F
-from services.vbbu.models import MCORDService, VBBUComponent
-from synchronizers.base.SyncInstanceUsingAnsible import SyncInstanceUsingAnsible
+# from services.vbbu.models import MCORDService, VBBUTenant
+from synchronizers.new_base.modelaccessor import *
+from synchronizers.new_base.SyncInstanceUsingAnsible import SyncInstanceUsingAnsible
 
 parentdir = os.path.join(os.path.dirname(__file__), "..")
 sys.path.insert(0, parentdir)
 
-class SyncVBBUComponent(SyncInstanceUsingAnsible):
+class SyncVBBUTenant(SyncInstanceUsingAnsible):
 
-    provides = [VBBUComponent]
 
-    observes = VBBUComponent
+    provides = [VBBUTenant]
+
+    observes = VBBUTenant
 
     requested_interval = 0
 
-    template_name = "sync_vbbu.yaml"
+    template_name = "vbbutenant_playbook.yaml"
 
     service_key_name = "/opt/xos/configurations/mcord/mcord_private_key"
 
     def __init__(self, *args, **kwargs):
-        super(SyncVBBUComponent, self).__init__(*args, **kwargs)
+        super(SyncVBBUTenant, self).__init__(*args, **kwargs)
 
     def fetch_pending(self, deleted):
 
         if (not deleted):
-            objs = VBBUComponent.get_tenant_objects().filter(
+            objs = VBBUTenant.get_tenant_objects().filter(
                 Q(enacted__lt=F('updated')) | Q(enacted=None), Q(lazy_blocked=False))
         else:
 
-            objs = VBBUComponent.get_deleted_tenant_objects()
+            objs = VBBUTenant.get_deleted_tenant_objects()
 
         return objs
 

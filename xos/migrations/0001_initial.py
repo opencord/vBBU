@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
             bases=('core.service',),
         ),
         migrations.CreateModel(
-            name='VBBUComponent',
+            name='VBBUTenant',
             fields=[
             ],
             options={

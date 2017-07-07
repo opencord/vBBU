@@ -1,14 +1,15 @@
-from services.vbbu.models import VBBUComponent, MCORDService
+# from services.vbbu.models import *
+from synchronizers.new_base.modelaccessor import *
 from xosresource import XOSResource
 
-class XOSVBBUComponent(XOSResource):
-    provides = "tosca.nodes.VBBUComponent"
-    xos_model = VBBUComponent
+class XOSVBBUTenant(XOSResource):
+    provides = "tosca.nodes.VBBUTenant"
+    xos_model = VBBUTenant
     copyin_props = ["s1u_tag", "s1mme_tag", "rru_tag", "display_message"]
     name_field = None
 
     def get_xos_args(self, throw_exception=True):
-        args = super(XOSVBBUComponent, self).get_xos_args()
+        args = super(XOSVBBUTenant, self).get_xos_args()
 
         provider_name = self.get_requirement("tosca.relationships.MemberOfService", throw_exception=throw_exception)
         if provider_name:
@@ -27,5 +28,5 @@ class XOSVBBUComponent(XOSResource):
         pass
 
     def can_delete(self, obj):
-        return super(XOSVBBUComponent, self).can_delete(obj)
+        return super(XOSVBBUTenant, self).can_delete(obj)
 
