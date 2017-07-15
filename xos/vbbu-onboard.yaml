@@ -19,9 +19,7 @@ topology_template:
           admin_template: templates/mcordadmin.html
           synchronizer: synchronizer/manifest
           synchronizer_run: vbbu-synchronizer.py
-          #tosca_custom_types: exampleservice.yaml
+          tosca_custom_types: tosca/custom_types/vbbu.yaml
           tosca_resource: tosca/resources/vbbutenant.py, tosca/resources/vbbuservice.py
-          #rest_service: subdirectory:vsg api/service/vsg/vsgservice.py
-          #rest_tenant: subdirectory:cord api/tenant/cord/vsg.py
           private_key: file:///opt/xos/key_import/mcord_rsa
           public_key: file:///opt/xos/key_import/mcord_rsa.pub
