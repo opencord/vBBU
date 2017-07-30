@@ -10,11 +10,11 @@ from synchronizers.new_base.modelaccessor import *
 # The class to provide an admin interface on the web for the service.
 # We do only configuration here and don't change any logic because the logic
 # is taken care of for us by ReadOnlyAwareAdmin
-class MCORDServiceAdmin(ReadOnlyAwareAdmin):
+class VBBUServiceAdmin(ReadOnlyAwareAdmin):
     # We must set the model so that the admin knows what fields to use
-    model = MCORDService
-    verbose_name = "MCORD Service"
-    verbose_name_plural = "MCORD Services"
+    model = VBBUService
+    verbose_name = "VBBU Service"
+    verbose_name_plural = "VBBU Services"
 
     # Setting list_display creates columns on the admin page, each value here
     # is a column, the column is populated for every instance of the model.
@@ -59,14 +59,14 @@ class MCORDServiceAdmin(ReadOnlyAwareAdmin):
     # Used to include a template for a tab. Here we include the
     # helloworldserviceadmin template in the top position for the administration
     # tab.
-    suit_form_includes = (('mcordadmin.html',
+    suit_form_includes = (('admin.html',
                            'top',
                            'administration'),)
 
     # Used to get the objects for this model that are associated with the
     # requesting user.
     def queryset(self, request):
-        return MCORDService.get_service_objects_by_user(request.user)
+        return VBBUService.get_service_objects_by_user(request.user)
 
 # Class to represent the form to add and edit tenants.
 # We need to define this instead of just using an admin like we did for the
@@ -87,7 +87,7 @@ class VBBUTenantForm(forms.ModelForm):
         # Define the logic for obtaining the objects for the provider_service
         # dropdown of the tenant form.
         self.fields[
-            'provider_service'].queryset = MCORDService.get_service_objects().all()
+            'provider_service'].queryset = VBBUService.get_service_objects().all()
         # Set the initial kind to HELLO_WORLD_KIND for this tenant.
         self.fields['kind'].initial = MCORD_KIND
         # If there is an instance of this model then we can set the initial
@@ -100,8 +100,8 @@ class VBBUTenantForm(forms.ModelForm):
         # If there is not an instance then we need to set initial values.
         if (not self.instance) or (not self.instance.pk):
             self.fields['creator'].initial = get_request().user
-            if MCORDService.get_service_objects().exists():
-                self.fields["provider_service"].initial = MCORDService.get_service_objects().all()[0]
+            if VBBUService.get_service_objects().exists():
+                self.fields["provider_service"].initial = VBBUService.get_service_objects().all()[0]
 
     # This function describes what happens when the save button is pressed on
     # the tenant form. In this case we set the values for the instance that were
@@ -140,5 +140,5 @@ class VBBUTenantAdmin(ReadOnlyAwareAdmin):
 
 
 # Associate the admin forms with the models.
-admin.site.register(MCORDService, MCORDServiceAdmin)
+admin.site.register(VBBUService, VBBUServiceAdmin)
 admin.site.register(VBBUTenant, VBBUTenantAdmin)
