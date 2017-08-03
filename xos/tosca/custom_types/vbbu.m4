@@ -15,4 +15,17 @@ node_types:
         properties:
             xos_base_props
             xos_base_service_props
+            service_message:
+                type: string
+                required: false
+            
+    tosca.nodes.VBBUTenant:
+        derived_from: tosca.nodes.Root
+        description: >
+            VBBU Tenant
+        properties:
+            xos_base_tenant_props
+            tenant_message:
+                type: string
+                required: false
 
