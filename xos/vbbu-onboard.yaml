@@ -15,8 +15,6 @@ topology_template:
           # base_url is non-null.
           # models: models.py
           xproto: ./
-          admin: admin.py
-          admin_template: templates/mcordadmin.html
           synchronizer: synchronizer/manifest
           synchronizer_run: vbbu-synchronizer.py
           tosca_custom_types: tosca/custom_types/vbbu.yaml

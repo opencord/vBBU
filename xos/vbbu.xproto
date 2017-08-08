@@ -1,15 +1,16 @@
-option name = "vbbu";
+option name = "vBBU";
+option verbose_name = "Virtual Broadband Base Unit";
 option app_label = "vbbu";
-option verbose_name = "vBBU Service";
 option kind = "vRAN";
 option legacy = "True";
 
 message VBBUService (Service){
-    required string service_message = 1 [help_text = "Service Message to Display", max_length = 254, null = False, db_index = False, blank = False];
+    option name = "VBBUService";
+    option verbose_name = "Virtual Broadband Base Unit Service";
 }
 
 message VBBUTenant (TenantWithContainer){
-     option name = "vbbutenant";
-     option verbose_name = "vBBU Tenant";
+     option name = "VBBUTenant";
+     option verbose_name = "Virtual Broadband Base Unit Tenant";
      required string tenant_message = 1 [help_text = "Tenant Message to Display", max_length = 254, null = False, db_index = False, blank = False];
 }

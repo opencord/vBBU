@@ -2,6 +2,10 @@ from core.models.plcorebase import *
 from models_decl import VBBUService_decl
 from models_decl import VBBUTenant_decl
 
+from core.models import Service, TenantWithContainer
+from django.db import transaction
+from django.db.models import *
+
 class VBBUService(VBBUService_decl):
    class Meta:
         proxy = True 
