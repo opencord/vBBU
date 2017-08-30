@@ -12,5 +12,4 @@ message VBBUService (Service){
 message VBBUTenant (TenantWithContainer){
      option name = "VBBUTenant";
      option verbose_name = "Virtual Broadband Base Unit Tenant";
-     required string tenant_message = 1 [help_text = "Tenant Message to Display", max_length = 254, null = False, db_index = False, blank = False];
 }

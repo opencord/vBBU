@@ -10,6 +10,11 @@ class VBBUService(VBBUService_decl):
    class Meta:
         proxy = True 
 
+   def create_tenant(self, **kwargs):
+       t = VBBUTenant(kind="vEPC", provider_service=self, connect_method="na", **kwargs)
+       t.save()
+       return t
+
 class VBBUTenant(VBBUTenant_decl):
    class Meta:
         proxy = True 
@@ -22,6 +27,13 @@ class VBBUTenant(VBBUTenant_decl):
        super(VBBUTenant, self).__init__(*args, **kwargs)
 
    def save(self, *args, **kwargs):
+       if not self.creator:
+           if not getattr(self, "caller", None):
+               raise XOSProgrammingError("VBBUTenant's self.caller was not set")
+           self.creator = self.caller
+           if not self.creator:
+               raise XOSProgrammingError("VBBUTenant's self.creator was not set")
+
        super(VBBUTenant, self).save(*args, **kwargs)
        # This call needs to happen so that an instance is created for this
        # tenant is created in the slice. One instance is created per tenant.

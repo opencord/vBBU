@@ -5,7 +5,7 @@ from services.vbbu.models import VBBUTenant
 class XOSVBBUTenant(XOSResource):
     provides = "tosca.nodes.VBBUTenant"
     xos_model = VBBUTenant
-    copyin_props = ("tenant_message",)
+    copyin_props = ()
     name_field = None
 
     def get_xos_args(self, throw_exception=True):
