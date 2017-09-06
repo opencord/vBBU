@@ -1,5 +1,6 @@
 from core.models.plcorebase import *
 from models_decl import VBBUService_decl
+from models_decl import VBBUVendor_decl
 from models_decl import VBBUTenant_decl
 
 from django.db import models
@@ -25,6 +26,10 @@ class VBBUService(VBBUService_decl):
        t.save()
        return t
 
+class VBBUVendor(VBBUVendor_decl):
+   class Meta:
+        proxy = True 
+
 class VBBUTenant(VBBUTenant_decl):
    class Meta:
         proxy = True 
@@ -35,6 +40,17 @@ class VBBUTenant(VBBUTenant_decl):
            self._meta.get_field(
                    "provider_service").default = vbbuservice[0].id
        super(VBBUTenant, self).__init__(*args, **kwargs)
+
+   @property
+   def image(self):
+       if not self.vbbu_vendor:
+           return super(VBBUTenant, self).image
+       return self.vbbu_vendor.image
+   
+   def save_instance(self, instance):
+       if self.vbbu_vendor:
+           instance.flavor = self.vbbu_vendor.flavor
+       super(VBBUTenant, self).save_instance(instance)
 
    def save(self, *args, **kwargs):
        if not self.creator:

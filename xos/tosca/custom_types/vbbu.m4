@@ -23,3 +23,18 @@ node_types:
         properties:
             xos_base_tenant_props
 
+    tosca.nodes.VBBUVendor:
+        derived_from: tosca.nodes.Root
+        description: >
+            VBBU Vendor
+        capabilities:
+            xos_bas_service_caps
+        properties:
+            name:
+                type: string
+                required: true
+
+    tosca.relationships.VendorOfTenant:
+           derived_from: tosca.relationships.Root
+           valid_target_types: [ tosca.capabilities.xos.VBBUTenant ]
+

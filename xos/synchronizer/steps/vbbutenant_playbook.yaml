@@ -3,6 +3,7 @@
   gather_facts: False
   connection: ssh
   user: ubuntu
-  become: yes
+  sudo: yes
+  tasks:
   vars:
-    - tenant_message: "{{ tenant_message }}"
+

@@ -9,8 +9,6 @@ parentdir = os.path.join(os.path.dirname(__file__), "..")
 sys.path.insert(0, parentdir)
 
 class SyncVBBUTenant(SyncInstanceUsingAnsible):
-
-
     provides = [VBBUTenant]
 
     observes = VBBUTenant
@@ -25,15 +23,11 @@ class SyncVBBUTenant(SyncInstanceUsingAnsible):
         super(SyncVBBUTenant, self).__init__(*args, **kwargs)
 
     def fetch_pending(self, deleted):
-
         if (not deleted):
             objs = VBBUTenant.get_tenant_objects().filter(
                 Q(enacted__lt=F('updated')) | Q(enacted=None), Q(lazy_blocked=False))
         else:
-
             objs = VBBUTenant.get_deleted_tenant_objects()
 
         return objs
 
-    def get_extra_attributes(self, o):
-        return {"display_message": o.display_message, "s1u_tag": o.s1u_tag, "s1mme_tag": o.s1mme_tag, "rru_tag": o.rru_tag}

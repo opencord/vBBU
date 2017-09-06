@@ -18,6 +18,6 @@ topology_template:
           synchronizer: synchronizer/manifest
           synchronizer_run: vbbu-synchronizer.py
           tosca_custom_types: tosca/custom_types/vbbu.yaml
-          tosca_resource: tosca/resources/vbbutenant.py, tosca/resources/vbbuservice.py
+          tosca_resource: tosca/resources/vbbutenant.py, tosca/resources/vbbuservice.py, tosca/resources/vbbuvendor.py
           private_key: file:///opt/xos/key_import/mcord_rsa
           public_key: file:///opt/xos/key_import/mcord_rsa.pub
