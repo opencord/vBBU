@@ -2,16 +2,26 @@ from core.models.plcorebase import *
 from models_decl import VBBUService_decl
 from models_decl import VBBUTenant_decl
 
-from core.models import Service, TenantWithContainer
-from django.db import transaction
+from django.db import models
+from core.models import Service, PlCoreBase, Slice, Instance, Tenant, TenantWithContainer, Node, Image, User, Flavor, NetworkParameter, NetworkParameterType, Port, AddressPool
+from core.models.plcorebase import StrippedCharField
+import os
+from django.db import models, transaction
+from django.forms.models import model_to_dict
 from django.db.models import *
+from operator import itemgetter, attrgetter, methodcaller
+from core.models import Tag
+from core.models.service import LeastLoadedNodeScheduler
+import traceback
+from xos.exceptions import *
+from xos.config import Config
 
 class VBBUService(VBBUService_decl):
    class Meta:
         proxy = True 
 
    def create_tenant(self, **kwargs):
-       t = VBBUTenant(kind="vEPC", provider_service=self, connect_method="na", **kwargs)
+       t = VBBUTenant(kind="vRAN", provider_service=self, connect_method="na", **kwargs)
        t.save()
        return t
 
