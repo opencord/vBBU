@@ -1,9 +1,0 @@
-model-deps
-vbbu-synchronizer.py
-vbbu_config
-steps/sync_vbbutenant.py
-steps/vbbutenant_playbook.yaml
-stop.sh
-manifest
-__init__.py
-run.sh
