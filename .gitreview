@@ -3,4 +3,3 @@ host=gerrit.opencord.org
 port=29418
 project=vBBU.git
 defaultremote=origin
-defaultbranch=master
